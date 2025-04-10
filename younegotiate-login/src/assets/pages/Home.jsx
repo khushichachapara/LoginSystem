@@ -13,7 +13,7 @@ const Home = () => {
           <img
             src="/images/app-logo.png"
             alt="YouNegotiate Logo"
-            className="h-8"
+            className="h-10"
           />
         </div>
 
@@ -33,7 +33,7 @@ const Home = () => {
 
         {/* Navigation Links and Buttons */}
         <div
-          className={`absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent md:flex items-center space-y-4 md:space-y-0 md:space-x-8 text-sm font-medium transition-transform transform ${
+          className={`absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent md:flex items-center space-y-4 md:space-y-0 md:space-x-8  text-m md:text-sm font-medium transition-transform transform ${
             isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           } md:translate-x-0`}
         >
@@ -58,12 +58,12 @@ const Home = () => {
           {/* Buttons */}
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <Link to="/login/consumer">
-              <button className="px-4 py-2 border-2 border-blue-600 text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition">
+              <button className="px-4 py-4 border-2 border-blue-600 text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition">
                 I'm a Consumer
               </button>
             </Link>
             <Link to="/register/creditor">
-              <button className="px-4 py-2 border-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition">
+              <button className="px-4 py-4 border-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition">
                 I'm a Creditor
               </button>
             </Link>
@@ -106,7 +106,7 @@ const Home = () => {
         </div>
       </section>
       {/* Footer */}
-      <footer className="bg-gray-100 border-t mt-8 py-15">
+      <footer className="bg-gray-100 border-t mt-5 py-6">
         <div className="max-w-7xl mx-auto px-6 md:px-20 flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
           <div>
             <img
@@ -114,7 +114,7 @@ const Home = () => {
               alt="YouNegotiate Logo"
               className="h-8 inline-block"
             />
-            <p className="text-gray-500 text-xl mt-2">
+            <p className="text-gray-500 text-m mt-2">
               © {new Date().getFullYear()} YouNegotiate. All rights reserved.
             </p>
           </div>
