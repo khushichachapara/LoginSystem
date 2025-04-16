@@ -14,7 +14,7 @@ const Home = () => {
           <img
             src="/images/app-logo.png"
             alt="YouNegotiate Logo"
-            className="h-10"
+            className="w-60"
           />
         </div>
 
@@ -34,7 +34,7 @@ const Home = () => {
 
         {/* Navigation Links and Buttons */}
         <div
-          className={`absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent md:flex items-center space-y-4 md:space-y-0 md:space-x-12 text-m md:text-sm font-medium transition-transform transform ${
+          className={`absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent md:flex items-center space-y-4 md:space-y-0 md:space-x-10 text-m md:text-sm font-medium transition-transform transform ${
             isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           } md:translate-x-0`}
         >
@@ -117,7 +117,7 @@ const Home = () => {
       </section>
       <InfoSteps/>
       {/* Footer */}
-      <footer className="bg-gray-100 border-t mt-4 md:mt-0 py-6">
+      <footer className="bg-gray-200 border-t mt-4 md:mt-0 py-6">
         <div className="max-w-7xl mx-auto px-6 md:px-20 flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
           <div>
             <img
