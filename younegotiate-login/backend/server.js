@@ -2,15 +2,15 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-dotenv.config();
 const cors = require('cors');
 
+dotenv.config();
 
 app.use(cors());
 app.use(express.json());
 
 // Connect MongoDB
-mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB Connected:=',process.env.MONGO_URI))
+mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
 // Import route
