@@ -17,12 +17,12 @@ const ConsumerLogin = () => {
           </Link>
         </div>
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-          <Link to="/register/creditor">
+          <Link to="/login/creditor">
             <button
-              className="px-8 py-3 border-2 border-blue-600 hover:bg-blue-600 hover:text-white rounded-full font-semibold bg-white text-blue-600 transition"
+              className="px-8 py-3 border-2 border-blue-600 hover:bg-blue-50  rounded-lg font-semibold bg-white text-blue-600 transition"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
             >
-              I'm a Creditor
+              Creditor Login
             </button>
           </Link>
         </div>

@@ -76,10 +76,10 @@ const CreditorRegister = () => {
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
           <Link to="/login/consumer">
             <button
-              className="px-8 py-3 border-2 border-blue-600  text-blue-600 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition"
+              className="px-8 py-3 border-2 border-blue-600  text-blue-600 rounded-lg font-semibold hover:bg-blue-50  transition"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
             >
-              I'm a Consumer
+              Consumer Login
             </button>
           </Link>
         </div>
@@ -126,6 +126,7 @@ const CreditorRegister = () => {
             type="password"
             name="confirmPassword"
             placeholder="Confirm Password"
+            
             value={form.confirmPassword}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg mb-6"

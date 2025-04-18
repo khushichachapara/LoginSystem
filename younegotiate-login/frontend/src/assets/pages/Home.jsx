@@ -1,9 +1,19 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import InfoSteps from "./info";
 
 const Home = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCreditorClick = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
+      navigate("/creditor/dashboard");
+    } else {
+      navigate("/login/creditor");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
@@ -66,13 +76,13 @@ const Home = () => {
                 I'm a Consumer
               </button>
             </Link>
-            <Link to="/register/creditor">
-              <button className="px-8 py-3 border-2 border-blue-600 bg-blue-600 text-white rounded-full font-semibold hover:bg-white hover:text-blue-600 transition"
+            <button
+              onClick={handleCreditorClick}
+              className="px-8 py-3 border-2 border-blue-600 bg-blue-600 text-white rounded-full font-semibold hover:bg-white hover:text-blue-600 transition"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
-               >
-                I'm a Creditor
-              </button>
-            </Link>
+            >
+              I'm a Creditor
+            </button>
           </div>
         </div>
       </nav>
@@ -90,19 +100,21 @@ const Home = () => {
           </p>
           <div className="flex space-x-4">
             <Link to="/login/consumer">
-              <button className="px-5 py-2 bg-blue-600 text-white rounded-full font-semibold shadow-md hover:bg-blue-800 transition"
-              style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
+              <button
+                className="px-5 py-2 bg-blue-600 text-white rounded-full font-semibold shadow-md hover:bg-blue-800 transition"
+                style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
               >
                 I'm a Consumer
               </button>
             </Link>
-            <Link to="/register/creditor">
-              <button className="px-5 py-2 bg-blue-600 text-white rounded-full font-semibold shadow-md hover:bg-blue-800 transition"
+
+            <button
+              onClick={handleCreditorClick}
+              className="px-5 py-2 bg-blue-600 text-white rounded-full font-semibold shadow-md hover:bg-blue-800 transition"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
-              >
-                I'm a Creditor
-              </button>
-            </Link>
+            >
+              I'm a Creditor
+            </button>
           </div>
         </div>
 
@@ -115,7 +127,7 @@ const Home = () => {
           />
         </div>
       </section>
-      <InfoSteps/>
+      <InfoSteps />
       {/* Footer */}
       <footer className="bg-gray-200 border-t mt-4 md:mt-0 py-6">
         <div className="max-w-7xl mx-auto px-6 md:px-20 flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">

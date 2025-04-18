@@ -34,10 +34,12 @@ const CreditorLogin = () => {
         }
       );
 
-      alert("Login successful!");
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("token", response.data.token);
+      console.log("Token:", response.data.token);
+      alert("Login successfully!");
       console.log("Logged in user:", response.data.user);
-
-      navigate("/creditor/deshbord");
+      navigate("/creditor/dashboard");
     } catch (error) {
       if (error.response && error.response.data.message) {
         alert(error.response.data.message);
@@ -65,10 +67,10 @@ const CreditorLogin = () => {
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
           <Link to="/login/consumer">
             <button
-              className="px-8 py-3 border-2 border-blue-600  text-blue-600 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition"
+              className="px-8 py-3 border-2 border-blue-600  text-blue-600 rounded-lg font-semibold hover:bg-blue-50  transition"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
             >
-              I'm a Consumer
+              Consumer Login
             </button>
           </Link>
         </div>
@@ -114,7 +116,7 @@ const CreditorLogin = () => {
               to="/register/creditor"
               className="text-blue-600 hover:underline"
             >
-              Register here
+              Join Now
             </Link>
           </p>
         </form>
