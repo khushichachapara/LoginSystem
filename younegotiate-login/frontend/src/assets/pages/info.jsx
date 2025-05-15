@@ -6,7 +6,7 @@ const InfoSteps = () => {
       number: "1",
       title: "Creditor Joins",
       description: "Set term offers and upload accounts",
-      icon: "./images/features_opportunity.png", // replace with your icon path
+      icon: "./images/features_opportunity.png",
     },
     {
       number: "2",
@@ -29,19 +29,20 @@ const InfoSteps = () => {
         "Consumers can manage all payment plans in one place to support real life circumstances.",
       icon: "./images/features_reschedule.png",
     },
+    
   ];
 
   return (
     <section id="how-it-works" className="p-6 md:p-12 md:m-10 bg-white "
-    //style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }}
+    //style={{ boxShadow: "0 4px 10px rgba(152, 176, 216, 0.5)" }}
     >
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">How It Works</h2>
+      <h2 className="text-3xl font-bold text-center text-black mb-10">How It Works</h2>
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
         {steps.map((step, index) => (
           <div
             key={index}
-            className="bg-blue-50 rounded-2xl p-6 shadow-md flex flex-col gap-4 hover:shadow-lg transition-shadow "
-            //style={{ boxShadow: "10px 4px 10px rgba(59, 130, 246, 0.5)" }}
+            className="bg-blue-50 rounded-2xl p-6 shadow-md flex flex-col gap-4 hover:shadow-[-4px_-4px_15px_rgba(152,176,216,0.5)] transition-shadow hover:transition-shadow duration-300 "
+            //style={{ boxShadow: "-4px -4px 10px rgba(196, 230, 290, 0.5)" }}
           >
             <div className="flex items-center gap-4 ">
               <div className="text-3xl font-bold text-black">{step.number}</div>

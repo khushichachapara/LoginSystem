@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InfoSteps from "./info";
 
@@ -15,17 +15,29 @@ const Home = () => {
     }
   };
 
+  const handleConsumerClick = () => {
+    const consumerId =localStorage.getItem('consumerId')
+    const isLoggedIn = localStorage.getItem("isLoggedInconsumer");
+    if (isLoggedIn === "true") {
+      navigate(`/consumer/dashboard/${consumerId}`);
+    } else {
+      navigate("/login/consumer");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 md:px-20 py-4 border-b shadow-sm">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <img
-            src="/images/app-logo.png"
-            alt="YouNegotiate Logo"
-            className="w-60"
-          />
+        <div className="flex items-center space-x-2 hover:pointer">
+          <Link to="/">
+            <img
+              src="/images/app-logo.png"
+              alt="YouNegotiate Logo"
+              className="w-60"
+            />
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -44,13 +56,15 @@ const Home = () => {
 
         {/* Navigation Links and Buttons */}
         <div
-          className={`absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent md:flex items-center space-y-4 md:space-y-0 md:space-x-10 text-m md:text-sm font-medium transition-transform transform ${
-            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          className={`md:static absolute top-16 left-0 p-10 w-full h-auto md:h-auto md:w-auto bg-white md:bg-transparent shadow-lg md:shadow-none md:p-0 md:flex items-center space-y-4 md:space-y-0 md:space-x-10 text-m md:text-sm font-medium transition-all duration-300 ease-in-out z-50  ${
+            isMobileMenuOpen
+              ? "opacity-100 visible"
+              : "opacity-0 invisible md:opacity-100 md:visible"
           } md:translate-x-0`}
         >
           <a
             href="#"
-            className="block px-2 py-2 text-blue-600 border-b-2 border-blue-600 md:border-none"
+            className="block px-2 py-2 text-blue-600  border-blue-600 md:border-none"
           >
             Home
           </a>
@@ -68,17 +82,17 @@ const Home = () => {
           </a>
           {/* Buttons */}
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-            <Link to="/login/consumer">
-              <button
-                className="px-8 py-3 border-2 border-blue-600  text-blue-600 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition"
-                style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
-              >
-                I'm a Consumer
-              </button>
-            </Link>
+            <button
+              onClick={handleConsumerClick}
+              className="px-8 py-3 w-fit border-2 border-blue-500  text-blue-600 rounded-full font-semibold hover:bg-blue-500 hover:text-white transition"
+              style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
+            >
+              I'm a Consumer
+            </button>
+
             <button
               onClick={handleCreditorClick}
-              className="px-8 py-3 border-2 border-blue-600 bg-blue-600 text-white rounded-full font-semibold hover:bg-white hover:text-blue-600 transition"
+              className="px-8 py-3 border-2 w-fit border-blue-500 bg-blue-500 text-white rounded-full font-semibold hover:bg-white hover:text-blue-600 transition"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
             >
               I'm a Creditor
@@ -91,26 +105,26 @@ const Home = () => {
       <section className="flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-20 py-12">
         {/* Left Content */}
         <div className="max-w-xl space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Knock Out Delinquent <br /> Accounts Together... <br /> In Seconds!
+          <h1 className="text-3xl md:text-4xl font-bold leading-none">
+            Knock Out Delinquent <br /> Accounts Together... <br />
+            <span className="text-blue-500"> In Seconds!</span>
           </h1>
-          <p className="text-gray-600 text-lg">
-            The first social platform for creditors, consumers, and donors to
-            work together. Any time, Any Place.
+          <p className="text-black text-xl leading-none">
+            The first social platform for creditors, consumers, and <br />
+            donors to work together. Any time, Any Place.
           </p>
           <div className="flex space-x-4">
-            <Link to="/login/consumer">
-              <button
-                className="px-5 py-2 bg-blue-600 text-white rounded-full font-semibold shadow-md hover:bg-blue-800 transition"
-                style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
-              >
-                I'm a Consumer
-              </button>
-            </Link>
+            <button
+              onClick={handleConsumerClick}
+              className="px-5 py-2 bg-blue-500 text-white rounded-full font-semibold shadow-md hover:pointer transition"
+              style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
+            >
+              I'm a Consumer
+            </button>
 
             <button
               onClick={handleCreditorClick}
-              className="px-5 py-2 bg-blue-600 text-white rounded-full font-semibold shadow-md hover:bg-blue-800 transition"
+              className="px-5 py-2 bg-blue-500 text-white rounded-full font-semibold shadow-md hover:pointer transition"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
             >
               I'm a Creditor

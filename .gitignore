@@ -1,2 +1,7 @@
 younegotiate-login/backend/node_modules/
 younegotiate-login/backend/.env
+younegotiate-login/frontend/node_modules/
+younegotiate-login/frontend/package-lock.json
+younegotiate-login/frontend/package.json
+younegotiate-login/node_modules/
+younegotiate-login/package-lock.json

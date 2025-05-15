@@ -1,11 +1,13 @@
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
+
 dotenv.config();
 
+const app = express();
+const JWT_SECRET = process.env.JWT_SECRET ; 
 app.use(cors());
 app.use(express.json());
 
@@ -16,6 +18,9 @@ mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB Connecte
 // Import route
 const creditorRoutes = require('./routes/creditor');
 app.use('/api/creditor', creditorRoutes);
+
+const create_consumer =require('./routes/create_consumer');
+app.use('/api/create_consumer',create_consumer);
 
 // Start server
 app.listen(5000, () => {
