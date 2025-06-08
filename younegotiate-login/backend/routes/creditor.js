@@ -13,6 +13,7 @@ const CounterOffer = require('../models/Counteroffer');
 
 
 //register a creditor
+
 router.post('/register', async (req, res) => {
     const { name, email, password, confirmPassword } = req.body;
     //console.log("Data Received",req.body);
@@ -55,6 +56,7 @@ router.get('/dashboard', verifyToken, (req, res) => {
 });
 
 //login a creditor
+
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -96,6 +98,7 @@ router.post('/login', async (req, res) => {
 });
 
 //logout a creditor not using though
+
 router.post('/logout', async (req, res) => {
 
     res.status(200).json({ message: 'Logout successful (frontend should delete token)' });
@@ -151,6 +154,7 @@ router.post('/paymentterms', verifyToken, async (req, res) => {
 });
 
 //get payment terms of a creditor for all consumer comman
+
 router.get('/getpaymentterms', verifyToken, async (req, res) => {
     const queryId = req.query.id;
 
@@ -205,8 +209,8 @@ router.get("/getnegotiationoffer", async (req, res) => {
   }
 });
 
-
 //send counter offer
+
 router.post('/send-counter-offer', verifyToken, async (req, res) => {
     try {
         const {
@@ -259,8 +263,8 @@ router.post('/send-counter-offer', verifyToken, async (req, res) => {
     }
 }); 
 
-
 //update status  
+
 router.patch('/updatenegotiationstatus', verifyToken, async (req, res) => {
     //console.log("PATCH /updatenegotiationstatus hit"); 
     const { offerId, status } = req.body;
@@ -291,7 +295,5 @@ router.patch('/updatenegotiationstatus', verifyToken, async (req, res) => {
         res.status(500).json({ message: 'Server error while updating offer status' });
     }
 });
-
-
 
 module.exports = router;

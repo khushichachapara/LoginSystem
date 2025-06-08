@@ -16,6 +16,7 @@ const ConsumerNegotiation = () => {
   const [consumer, setConsumer] = useState(null);
   const [creditorOffer, setCreditorOffer] = useState(null);
   const [offerStatus, setOfferStatus] = useState(null);
+  const [paymentterms, setPaymentterms] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const validationSchema = yup.object({
@@ -25,7 +26,7 @@ const ConsumerNegotiation = () => {
     paymentdiscount: yup
       .number()
       .required('payment Discount is required')
-      .min(1, "Full Payment Discount must be at least 0")
+      .min(1, "Full Payment Discount must be at least 1")
       .max(100, "Full Payment Discount must be at most 100"),
     installmentamount: yup
       .number()
@@ -130,11 +131,14 @@ const ConsumerNegotiation = () => {
 
           console.log('consumer data', consumerResponse.data);
 
+          if (consumerResponse.data.error) {
+            console.error("Error:", consumerResponse.data.error);
+          }
           setConsumer(consumerResponse.data);
 
           const offerResponse = await axios.get(`http://localhost:5000/api/create_consumer/getcounteroffer`, {
             params: {
-              consumerId: id, // or the appropriate ID you're using
+              consumerId: id,
             },
             headers: {
               Authorization: `Bearer ${token}`,
@@ -152,8 +156,22 @@ const ConsumerNegotiation = () => {
 
           setOfferStatus(offerStatus.data);
 
-          if (consumerResponse.data.error) {
-            console.error("Error:", consumerResponse.data.error);
+          if (consumerResponse.data && consumerResponse.data.creditor) {
+
+
+            const creditorId = consumerResponse.data.creditor._id;
+            // console.log('Creditor ID:', creditorId); // Log the creditor ID
+
+            // Fetch payment terms using the creditorId
+            const paymentTermsResponse = await axios.get(`http://localhost:5000/api/creditor/getpaymentterms?id=${creditorId}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+
+            console.log('payment terms data', paymentTermsResponse.data); // Log payment terms data
+
+            setPaymentterms(paymentTermsResponse.data); // Set payment terms in state
           }
 
         }
@@ -170,6 +188,9 @@ const ConsumerNegotiation = () => {
   const handleClick = () => {
     toast.success('You have Accept Counter Offer By Creditor');
   };
+  const handlerejection =()=>{
+    toast.success('you have rejected Counter Offer By creditor')
+  }
   const cleanForm = () => {
     formik.resetForm();
   };
@@ -178,22 +199,28 @@ const ConsumerNegotiation = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       {/* Header */}
-      <h1 className="text-2xl font-bold mb-6 text-blue-500">
+      <h1 className="text-4xl  mb-6 text-blue-500 flex justify-center items-center">
         Negotiate Your Payment Amount Here
       </h1>
 
       {/* Account Summary */}
       {consumer && (<div className="bg-white rounded-xl shadow-md p-5 mb-6">
-        <h2 className="text-xl font-semibold text-blue-500 mb-2">
-          Account Summary
+        <h2 className="text-xl  text-blue-500 mb-2">
+          Account Summary Of <span className="text-red-500 text-2xl">{consumer.firstname} {consumer.lastname}</span>
         </h2>
-        <p><strong>Account Holder :</strong> {consumer.firstname} {consumer.lastname}</p>
         <p><strong>Account Number :</strong> {consumer.accountnumber} </p>
         <p><strong>payable Amount :</strong> {consumer.balance} ₹ </p>
-        
+        {paymentterms && (<>
+          <p><strong> Inistial Full Payment Discount Set by Creditor : </strong> {paymentterms.paymentTerms.fullPaymentDiscount} %</p>
+          <p><strong>Initial installment Discount Set by Creditor : </strong> {paymentterms.paymentTerms.installmentPaymentDiscount} %</p>
+
+        </>
+        )}
+
+
         {Array.isArray(offerStatus) && offerStatus.map((offer) => (
-          <div key={offer._id} className="mt-4 ">
-            <h3 className="text-xl font-semibold  text-blue-500 mb-2"> Previouse Offre Sent To Creditor</h3>
+          <div key={offer._id} className="mt-6 border-t border-gray-900 ">
+            <h3 className="text-xl font-semibold  text-blue-500 mb-2 mt-2"> Previouse Offer Sent To Creditor</h3>
             <div>
               <p><strong> Your Requested Offer Type :</strong> {offer.offertype}</p>
               <p><strong> Payment discount Percentage :</strong> {offer.paymentdiscount} % </p>
@@ -215,7 +242,7 @@ const ConsumerNegotiation = () => {
       </div>)}
 
       {/* Creditor Counter Offer */}
-      {creditorOffer && creditorOffer.length > 0 && creditorOffer.map ((offer) => (
+      {/* {creditorOffer && creditorOffer.length > 0 && creditorOffer.map ((offer) => (
         <div key={offer._id} className="bg-blue-50 border-l-4 border-blue-500 rounded-xl shadow-md p-5 mb-6">
           <h2 className="text-xl font-semibold text-blue-800 mb-2">
             Creditor's Counter Offer
@@ -240,13 +267,72 @@ const ConsumerNegotiation = () => {
             </button></a>
           </div>
         </div>
-      ))}
+      ))} */}
+
+      {creditorOffer && creditorOffer.length > 0 && creditorOffer.map(counterOffer => {
+        const matchedOffer = Array.isArray(offerStatus)
+          ? offerStatus.find(offer => String(offer._id) === String(counterOffer.offerId))
+          : null;
+
+        return (
+          <div key={counterOffer._id} className="bg-blue-50 border-l-4 border-blue-500 rounded-xl shadow-md p-5 mb-6">
+
+            {/* Show previous offer if matched */}
+            {matchedOffer && (
+              <div className="mb-4 pb-4  rounded border-b border-gray-900">
+                <h3 className="text-xl  text-blue-500 mb-2">Your Negotiation request..</h3>
+                <p><strong>Your Requested Offer Type :</strong> {matchedOffer.offertype}</p>
+                <p><strong>Payment Discount Percentage :</strong> {matchedOffer.paymentdiscount} %</p>
+                <p><strong>Installment Amount :</strong> {matchedOffer.installmentamount}</p>
+                <p><strong>Payment First Date   :</strong> {new Date(matchedOffer.paymentdate).toLocaleDateString()}</p>
+                <p><strong>Message To Creditor :</strong> {matchedOffer.note}</p>
+                {matchedOffer.status === "accepted" && <p className="text-green-600 text-xl font-serif"> Offer is Accepted.</p>}
+                {matchedOffer.status === "rejected" && <p className="text-red-600 text-xl font-serif">Offer is Rejected.</p>}
+                {matchedOffer.status === "pending" && <p className="text-yellow-600 text-xl font-serif"> Offer is Under Review.</p>}
+              </div>
+            )}
+
+            {/* Creditor Counter Offer */}
+            <h2 className="text-xl  text-blue-500 mb-2">Creditor's Counter Offer</h2>
+            <p><strong>Payment Method :</strong> {counterOffer.offertype} </p>
+            <p><strong>Payment Discount :</strong> {counterOffer.paymentdiscount}% </p>
+            <p><strong>Installment Amount :</strong>  {counterOffer.installmentamount}</p>
+            <p><strong>Payment First Date :</strong> {new Date(counterOffer.paymentdate).toLocaleDateString()}</p>
+            <p><strong>Message to Consumer :</strong> {counterOffer.note} </p>
+
+            <div className="mt-4">
+              <button
+                onClick={() => handleClick()}
+                id="accepted"
+                className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:text-blue-600 hover:bg-white border border-blue-600 mb-2"
+              >
+                Accept Offer
+              </button>
+              <button
+              onClick={() => handlerejection()}
+              id="rejected"
+                className="bg-red-500 text-white px-4 py-2 rounded mr-2 hover:text-red-500 hover:bg-white border border-red-500 mb-2"
+              >
+                Reject Offer
+              </button>
+              <a href="#negotiation-form">
+                <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-white hover:text-green-600 border border-green-600">
+                  Make New Offer
+                </button>
+              </a>
+            </div>
+          </div>
+        );
+      })}
+
+
+
 
       {/* Negotiation Form */}
       <form onSubmit={formik.handleSubmit}>
 
         <div className="border border-blue-600 bg-white p-6 rounded-lg">
-          <h2 id="negotiation-form" className="text-lg font-semibold text-blue-500 mb-4"> Send a Negotiation Offer</h2>
+          <h2 id="negotiation-form" className="text-lg  text-blue-500 mb-4"> Send a Negotiation Offer</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block font-medium mb-1">Offer Type <span className="text-red-500">*</span></label>

@@ -6,6 +6,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {toast} from "react-toastify";
 
+
 const PaymentTerms = () => {
 
   // const [form, setForm] = useState({
@@ -111,8 +112,6 @@ const PaymentTerms = () => {
         }
       );
       
-        
-      
       toast.info("Payment terms set successfully!");
       console.log("Response:", response.data);
 
@@ -125,13 +124,13 @@ const PaymentTerms = () => {
      formik.resetForm();
 
 
-    } catch (error) {
-      
-      formik.setErrors({
-        fullPaymentDiscount: "Error setting payment terms. Please try again.",
-        installmentPaymentDiscount: "Error setting payment terms. Please try again.",
-        firstPaymentDateDuration: "Error setting payment terms. Please try again.",
-      });
+    } catch (err) {
+     if (err.response && err.response.data && err.response.data.message) {
+             console.log("Server Error:", err.response.data.message);
+             toast.error('User with this Email already exists');
+           } else {
+             console.log("Unexpected Error:", err.message); // network issue, etc.
+           }
     }
   };
   return (
@@ -141,7 +140,7 @@ const PaymentTerms = () => {
         onSubmit={formik.handleSubmit}
 
          className="bg-white p-8 pb-20 rounded-xl shadow-md w-full max-w-8xl ">
-          <h1 className="text-4xl font-bold mb-6 text-center text-blue-500 ">
+          <h1 className="text-4xl  mb-6 text-center text-blue-500 ">
             Set Payment Terms
           </h1>
           <p className="text-red-700 mb-4">

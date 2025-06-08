@@ -4,6 +4,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { IoPersonAddOutline } from "react-icons/io5";
+import { CiSquareInfo } from "react-icons/ci";
+import { RiMenu2Fill } from "react-icons/ri";
+import { RiCloseFill } from "react-icons/ri";
+import { IoIosLogOut } from "react-icons/io";
 
 const CreditorDashboard = () => {
  
@@ -72,7 +77,8 @@ const CreditorDashboard = () => {
           className="absolute top-5 left-8 lg:hidden p-2 bg-blue-200 rounded-full shadow-md hover:bg-gray-300 transition duration-300"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
-          ☰
+          <RiMenu2Fill  style={{color:'blue', fontSize:'25px'}}/>
+
         </button>
 
         {/* sidebar */}
@@ -92,9 +98,9 @@ const CreditorDashboard = () => {
             {/* Close button inside sidebar (mobile only) */}
             <button
               onClick={() => setSidebarOpen(false)}
-              className="absolute top-2 right-4 lg:hidden text-2xl font-bold text-red-400"
+              className="absolute top-2 right-4 lg:hidden text-2xl font-bold text-blue-500"
             >
-              ✕
+              <RiCloseFill style={{fontSize:'50px'}}/>
             </button>
           </div>
 
@@ -115,7 +121,7 @@ const CreditorDashboard = () => {
               to="/CreateConsumer"
               className="flex items-center text-gray-700 hover:bg-gray-300 rounded-lg hover:text-blue-600"
             >
-             ➕ Add New Consumer
+             <IoPersonAddOutline style={{marginRight:'4px' ,color:'red'}} /> Add New Consumer
             </Link>
             <Link to ='/negotiation-requests/Creditor' className="flex items-center text-gray-700 hover:bg-gray-300 rounded-lg hover:text-blue-600">
             Manage Negotiations
@@ -124,16 +130,16 @@ const CreditorDashboard = () => {
           <div className="flex align justify-center  mt-20">
             <button
               onClick={handleLogout}
-              className="bg-blue-500 border border-blue-500 text-white px-8 py-2 tracking-widest rounded-lg hover:bg-blue-50 hover:text-blue-500 transition duration-300"
+              className="bg-blue-500 border flex items-center border-blue-500 text-white px-8 py-2 tracking-widest rounded-lg hover:bg-blue-50 hover:text-blue-500 transition duration-300"
             >
-              Logout
+              Logout <IoIosLogOut style={{fontSize:"20px", marginLeft:'4px'}} />
             </button>
           </div>
         </aside>
 
         <main className="flex-1 flex flex-col justify-between p-4 bg-blue-400">
           <div className="flex-1 overflow-y-auto space-y-4  border-2 border-gray-300 rounded-lg p-4 shadow-md bg-gray-200">
-            <h1 className="text-4xl font-bold text-blue-500 pt-6">
+            <h1 className="text-4xl text-blue-500 pt-6">
             Account Management
             </h1>
             <p className="text-gray-600">
@@ -145,7 +151,7 @@ const CreditorDashboard = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2  text-m  lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8 ">
               {consumers.length > 0 ? (
                 consumers.map((consumer) => {
-                  const randomColor = getRandomColor(); // Get a random color for each card
+                  const randomColor = getRandomColor(); 
                   const brightness = getColorBrightness(randomColor);
                   const textColor =
                     brightness > 120 ? "text-gray-800" : "text-white";
@@ -159,7 +165,7 @@ const CreditorDashboard = () => {
                     
                       <div
                         key={consumer.id}
-                        className="bg-white rounded-2xl  p-6  md:w-full  transition hover:shadow-lg shadow-lg hover:shadow-blue-200 border  hover:scale-110 border-gray-200 hover:cursor-help"
+                        className="bg-gray-100 rounded-2xl  p-6  md:w-full  transition hover:shadow-lg shadow-lg hover:shadow-blue-200 border  border-gray-400 hover:cursor-not-allowed"
                         style={{
                           // backgroundColor: randomColor,
                           // color: textColor,
@@ -177,32 +183,32 @@ const CreditorDashboard = () => {
                           justifyContent: "space-between",
                         }}
                       >
-                        <h3 className={`text-xl font-semibold text-black mb-3 capitalize flex  items-center gap-1`}>
+                        <h3 className={`text-2xl    text-black mb-3 capitalize flex  items-center gap-1`}>
                           {consumer.firstname} {consumer.lastname}
                         </h3>
                         <p >
                           <strong className="text-sm text-gray-600">Email Address : </strong>{" "}
-                          <span className="inline-block max-w-[180px] align-middle lg:truncate font-medium text-blue-500 ">
+                          <span className="inline-block max-w-[180px] align-middle lg:truncate  text-blue-500 ">
                             {consumer.email}
                           </span>
                         </p>
                         <p >
                           <strong className="text-sm text-gray-600">Birth Date : </strong>{" "}
-                          <span className="inline-block max-w-[180px] align-middle lg:truncate font-medium text-blue-500 ">
+                          <span className="inline-block max-w-[180px] align-middle lg:truncate  text-blue-500 ">
                           {new Date(consumer.dob).toLocaleDateString()}  </span>
                         </p>
 
                         <p  >
-                          <strong className="text-sm text-gray-600">Phone :</strong><span className="text-blue-500 font-medium">{consumer.mobilenumber}</span>
+                          <strong className="text-sm text-gray-600">Phone :</strong><span className="text-blue-500 ">{consumer.mobilenumber}</span>
                         </p>
                         <p className="text-gray-500 mt-2 italic "> View additional details below </p>
 
                         <div className="relative  mt-2 flex-grow flex justify-end">
                           <button
-                            className={` p-1 absolute hover:scale-105  bg-blue-500 border border-blue-500 hover:text-blue-500  rounded-lg hover:bg-blue-50 transition duration-300 mt-2 text-white shadow-blue-500`}
+                            className={` p-1 absolute hover:scale-105  bg-blue-500 border border-blue-500 hover:text-blue-500  rounded-lg hover:bg-blue-50 transition duration-300 mt-2 text-white shadow-blue-500 flex items-center`}
                             onClick={() =>
                               navigate(`/CardDetails/${consumer._id || 'default'}`)
-                            } >More Details ℹ️</button>
+                            } > <CiSquareInfo style={{fontSize:'23px', marginRight:'4px'}} /> More Details</button>
                           
                         </div>
                       </div>

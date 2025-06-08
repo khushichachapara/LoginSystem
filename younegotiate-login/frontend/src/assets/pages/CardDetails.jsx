@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
 
+import { FaAddressCard } from "react-icons/fa6";
+
 const CardDetails = () => {
   const [consumer, setConsumer] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -79,7 +81,7 @@ const CardDetails = () => {
   return (
     <div className="bg-gray-100 min-h-screen py-8 ">
       <div className="max-w-4xl mx-auto m-4 p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
-        <h2 className="text-3xl font-bold text-blue-600 mb-6 text-center">
+        <h2 className="text-3xl  text-blue-600 mb-6 text-center">
           Consumer Details 
         </h2>
 
@@ -117,22 +119,22 @@ const CardDetails = () => {
           </div>
         </div>
 
-        <div className="mt-8 p-6 bg-blue-200 border border-blue-600 rounded-lg">
-          <h3 className="text-xl font-semibold mb-4 text-blue-700">
-            Payment Terms 💳
+        <div className="mt-8 p-6 bg-blue-100 border border-blue-100 rounded-lg ">
+          <h3 className="text-2xl  mb-4 text-blue-700 flex items-center">
+             <FaAddressCard  style={{marginRight:'6px', fontSize:'25px'}}/>Payment Terms
           </h3>
           <p>
             <span className="font-medium">Full Payment Discount : </span>{" "}
-            <span className="text-red-500 font-semibold"> {consumer.paymentTerm?.[0]?.fullPaymentDiscount || 'N/A' } % </span>
+            <span className="text-red-500 text-xl "> {consumer.paymentTerm?.[0]?.fullPaymentDiscount || 'N/A' } % </span>
           </p>
           <p>
             <span className="font-medium">Installment Discount : </span>{" "}
-            <span className="text-red-500 font-semibold"> {consumer.paymentTerm?.[0]?.installmentPaymentDiscount  || 'N/A'} % </span>
+            <span className="text-red-500 text-xl "> {consumer.paymentTerm?.[0]?.installmentPaymentDiscount  || 'N/A'} % </span>
           </p> 
           <p>
             <span className="font-medium">First Payment Due In : </span>{" "}
-            <span className="text-red-500 font-semibold">{consumer.paymentTerm[0]?.firstPaymentDateDuration  || 'N/A'} days</span>
-          </p>
+            <span className="text-red-500 text-xl">{consumer.paymentTerm[0]?.firstPaymentDateDuration  || 'N/A'} days</span>
+          </p> 
         </div>
 
         <div className="mt-6 flex justify-end gap-4">

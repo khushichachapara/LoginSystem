@@ -6,6 +6,10 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { IoIosLock } from "react-icons/io";
+import { PiLockKeyThin } from "react-icons/pi";
+import { CiUser } from "react-icons/ci";
+import { CiCalendarDate } from "react-icons/ci";
 
 const ConsumerLogin = () => {
   // const [form, setForm] = useState({
@@ -104,10 +108,10 @@ const ConsumerLogin = () => {
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
           <Link to="/login/creditor">
             <button
-              className="md:px-6 px-0.5 py-3 border-2 border-blue-500 hover:bg-blue-50  rounded-lg font-semibold bg-white text-blue-600 transition"
+              className="md:px-6 px-0.5 py-3 border-2 border-blue-500 hover:bg-blue-50  rounded-lg font-semibold bg-white text-blue-600 transition flex items-center"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
             >
-              🔒 Creditor Login
+              <IoIosLock style={{ marginRight: '4px', fontSize: '25px' }} /> Creditor Login
             </button>
           </Link>
         </div>
@@ -122,46 +126,62 @@ const ConsumerLogin = () => {
             <h2 className="text-2xl font-bold text-blue-500 ">Consumer Portal Login </h2>
           </div>
 
-          <div className="mb-4">
-            <input
-              type="text"
-              name="lastname"
-              placeholder="LastName"
-              autoComplete="off"
-              onChange={formik.handleChange}
-              value={formik.values.lastname}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-4"
-            />
-            {formik.touched.lastname && Boolean(formik.errors.lastname) && (
-              <label className="text-red-500 text-sm m-2">{formik.errors.lastname}</label>
-            )}
-            <input
-              type="date"
-              name="dob"
-              placeholder="Date of Birth"
-              onChange={formik.handleChange}
-              value={formik.values.dob}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-4"
-            />
-            {formik.touched.dob && Boolean(formik.errors.dob) && (
-              <label className="text-red-500 text-sm m-2">{formik.errors.dob}</label>
-            )}
+          <div className="mb-4 space-y-4">
 
-            <input
-              type="text"
-              name="ssn"
-              maxLength={4}
-              inputMode="numeric"
-              autoComplete="off"
-              pattern="\d{4}"
-              onChange={formik.handleChange}
-              value={formik.values.ssn}
-              placeholder="SSN last 4 digits"
-              className="w-full p-3 border border-gray-300 rounded-lg mt-4"
-            />
-            {formik.touched.ssn && Boolean(formik.errors.ssn) && (
-              <label className="text-red-500 text-sm m-2">{formik.errors.ssn}</label>
-            )}</div>
+            {/* Last Name */}
+            <div className="relative">
+              <CiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl" />
+              <input
+                type="text"
+                name="lastname"
+                placeholder="Last Name"
+                autoComplete="off"
+                onChange={formik.handleChange}
+                value={formik.values.lastname}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              {formik.touched.lastname && formik.errors.lastname && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{formik.errors.lastname}</p>
+              )}
+            </div>
+
+            {/* DOB */}
+            <div className="relative">
+              <CiCalendarDate className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl" />
+              <input
+                type="date"
+                name="dob"
+                onChange={formik.handleChange}
+                value={formik.values.dob}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              {formik.touched.dob && formik.errors.dob && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{formik.errors.dob}</p>
+              )}
+            </div>
+
+            {/* SSN */}
+            <div className="relative">
+              <PiLockKeyThin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl" />
+              <input
+                type="text"
+                name="ssn"
+                maxLength={4}
+                inputMode="numeric"
+                autoComplete="off"
+                pattern="\d{4}"
+                onChange={formik.handleChange}
+                value={formik.values.ssn}
+                placeholder="SSN last 4 digits"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              {formik.touched.ssn && formik.errors.ssn && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{formik.errors.ssn}</p>
+              )}
+            </div>
+
+          </div>
+
 
           <button
             type="submit"

@@ -4,6 +4,10 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
+import { CiUser } from "react-icons/ci";
+import { IoIosLock } from "react-icons/io";
+import { CiMail } from "react-icons/ci";
+import { PiLockKeyThin } from "react-icons/pi";
 
 const CreditorRegister = () => {
 
@@ -114,10 +118,10 @@ const CreditorRegister = () => {
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
           <Link to="/login/consumer">
             <button
-              className="px-8 py-3 border-2 border-blue-500  text-blue-600 rounded-lg font-semibold hover:bg-blue-50  transition"
+              className="px-8 py-3 border-2 border-blue-500  text-blue-600 rounded-lg font-semibold hover:bg-blue-50  transition flex items-center"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }}
             >
-              🔒 Consumer Login
+              <IoIosLock style={{ marginRight: '4px', fontSize: '25px' }} />  Consumer Login
             </button>
           </Link>
         </div>
@@ -132,60 +136,77 @@ const CreditorRegister = () => {
             Join the Win-Win Team
           </h2>
 
-          <div className="mb-4">
+          <div className="mb-4 space-y-4">
 
-            <input
-              type="text"
-              name="name"
-              autoComplete="off"
-              placeholder="UserName"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-4"
-            /> {formik.touched.name && Boolean(formik.errors.name) && (
-              <label className="text-red-500 text-sm m-2">{formik.errors.name}</label>
-            )}
+            {/* Username */}
+            <div className="relative">
+              <CiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl" />
+              <input
+                type="text"
+                name="name"
+                autoComplete="off"
+                placeholder="UserName"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              {formik.touched.name && formik.errors.name && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{formik.errors.name}</p>
+              )}
+            </div>
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              autoComplete="off"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-4"
-            />
-            {formik.touched.email && Boolean(formik.errors.email) && (
-              <label className="text-red-500 text-sm m-2">{formik.errors.email}</label>
-            )}
+            {/* Email */}
+            <div className="relative">
+              <CiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl" />
+              <input
+                type="email"
+                name="email"
+                autoComplete="off"
+                placeholder="Email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              {formik.touched.email && formik.errors.email && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{formik.errors.email}</p>
+              )}
+            </div>
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-4"
-            />
-            {formik.touched.password && Boolean(formik.errors.password) && (
-              <label className="text-red-500 text-sm m-2">{formik.errors.password}</label>
-            )}
+            {/* Password */}
+            <div className="relative">
+              <PiLockKeyThin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl" />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              {formik.touched.password && formik.errors.password && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{formik.errors.password}</p>
+              )}
+            </div>
 
-
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              maxLength={16}
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-4"
-            />
-            {formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword) && (
-              <label className="text-red-500 text-sm m-2">{formik.errors.confirmPassword}</label>
-            )}
+            {/* Confirm Password */}
+            <div className="relative">
+              <PiLockKeyThin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl" />
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                maxLength={16}
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{formik.errors.confirmPassword}</p>
+              )}
+            </div>
 
           </div>
+
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
@@ -193,11 +214,11 @@ const CreditorRegister = () => {
             Register
           </button>
 
-          <p className="text-sm mt-4 text-center text-gray-600">
+          <p className="text-lg mt-4 text-center flex items-center  justify-center gap-2">
             Already registered?
             <Link
               to="/login/creditor"
-              className="text-blue-500 hover:underline ml-1"
+              className="text-blue-500 hover:underline "
             >
               Login here
             </Link>

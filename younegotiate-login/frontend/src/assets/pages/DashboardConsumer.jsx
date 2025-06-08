@@ -5,6 +5,11 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { IoIosLogOut } from "react-icons/io";
+import { VscHistory } from "react-icons/vsc";
+import { RiMenu2Fill } from "react-icons/ri";
+import { RiCloseFill } from "react-icons/ri";
+import { CiUser } from "react-icons/ci";
 
 
 
@@ -90,7 +95,8 @@ const DashbordConsumer = () => {
           className="absolute top-5 left-8 lg:hidden p-2 bg-blue-200 rounded-full shadow-md hover:bg-gray-300 transition duration-300"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
-          ☰
+          <RiMenu2Fill  style={{color:'blue', fontSize:'25px'}}/>
+          
         </button>
 
         {/* sidebar */}
@@ -109,9 +115,9 @@ const DashbordConsumer = () => {
             {/* Close button inside sidebar (mobile only) */}
             <button
               onClick={() => setSidebarOpen(false)}
-              className="absolute top-2 right-4 lg:hidden text-2xl font-bold text-red-400"
+              className="absolute top-2 right-4 lg:hidden text-2xl font-bold text-blue-500"
             >
-              ✕
+              <RiCloseFill style={{fontSize:'50px'}}/>
             </button>
           </div>
 
@@ -129,10 +135,10 @@ const DashbordConsumer = () => {
               Make a Payment
             </Link>
             <Link
-              to="/ConsumerHistory"
+              to={`/ConsumerHistory/${id}`}
               className="flex items-center text-gray-700 hover:bg-gray-300 rounded-lg hover:text-blue-600"
             >
-              📜 Transaction Log
+             <VscHistory style={{margin:'6px' ,color:'red'}} />   Transaction Log 
             </Link>
             <Link
               to={`/negotiation-request/consumer/${id}`}
@@ -144,16 +150,16 @@ const DashbordConsumer = () => {
           <div className="flex align justify-center  mt-20">
             <button
               onClick={handleLogout}
-              className="bg-blue-500 border border-blue-500 text-white px-8 py-2 tracking-widest rounded-lg hover:bg-blue-50 hover:text-blue-500 transition duration-300"
+              className="bg-blue-500 border border-blue-500 text-white px-8 py-2 tracking-widest rounded-lg hover:bg-blue-50 hover:text-blue-500 transition duration-300 flex items-center gap-2"
             >
-              Logout
+              Logout<IoIosLogOut style={{fontSize:"20px"}} />
             </button>
           </div>
         </aside>
 
         <main className="flex-1 flex flex-col justify-between p-4 bg-blue-400 ">
           <div className="flex-1 overflow-y-auto space-y-4  border-2 border-gray-300 rounded-lg p-4 shadow-lg  bg-gray-200 h-full">
-            {consumer && (<h1 className="text-4xl font-bold text-blue-500 pt-6 capitalize">
+            {consumer && (<h1 className="text-4xl  text-blue-500 pt-6 capitalize">
               Welcome,{consumer.firstname}!!
             </h1>)}
             <p className="text-gray-600">
@@ -165,11 +171,11 @@ const DashbordConsumer = () => {
               <p className="text-gray-700 text-xl animate-pulse">Loading your dashboard...</p>
             ) : (
               <>
-                <div className="bg-white md:w-1/2 w-full p-4 border border-blue-500 shadow-xl shadow-sky-100 rounded-xl text-lg hover:cursor-not-allowed ">
+                <div className="bg-gray-100 md:w-1/2 w-full p-4 border border-gray-400 shadow-xl shadow-sky-100 rounded-xl text-lg hover:cursor-not-allowed ">
                   {/* Consumer Card */}
                   {consumer && (
                     <div className="mb-4">
-                      <h2 className="text-2xl font-bold text-blue-500 mb-4">Your Account Overview</h2>
+                      <h2 className="text-2xl  text-blue-500 mb-4 flex items-center"><CiUser className="mr-2 text-blue-500"/>Your Account Overview</h2>
                       <p><span className="font-semibold">  Account Holder Name :</span> {consumer.firstname} {consumer.lastname}</p>
                       <p><span className="font-semibold">date of Birth :</span> {new Date(consumer.dob).toLocaleDateString()}</p>
                       <p><span className="font-semibold">Account No :</span> <span className="text-red-600">{consumer.accountnumber}</span></p>
@@ -181,11 +187,11 @@ const DashbordConsumer = () => {
                   {/* Creditor Card */}
                   {creditor && (
                     <div >
-                      <h6 className="text-xl font-bold text-blue-500 mb-4 ">Assigned Creditor & paymentTerms</h6>
+                      <h6 className="text-xl  text-blue-500 mb-4 ">Assigned Creditor & paymentTerms</h6>
                       <p><span className="font-semibold"> Creditor Name :</span> {consumer.creditor.name}</p>
                       <p><span className="font-semibold">Email Address :</span> {consumer.creditor.email}</p>
 
-
+                    <br/>
                       <p><span className="font-semibold">Full Payment Discount :</span> {creditor.paymentTerms.fullPaymentDiscount || 'N/A'}%</p>
                       <p><span className="font-semibold">Installment Discount :</span> {creditor.paymentTerms.installmentPaymentDiscount || 'N/A'}%</p>
                       <p><span className="font-semibold">First Payment Due In :</span> {creditor.paymentTerms.firstPaymentDateDuration || 'N/A'} days</p>

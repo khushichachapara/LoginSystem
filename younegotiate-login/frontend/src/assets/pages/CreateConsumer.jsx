@@ -114,7 +114,7 @@ const CreateConsumer = () => {
       <form
         onSubmit={formik.handleSubmit}
         className="bg-white p-8 rounded-xl shadow-md w-full min-h-[600px] m-3 max-w-8xl ">
-        <h2 className="text-4xl font-bold mb-6 text-center text-blue-500 ">
+        <h2 className="text-4xl  mb-6 text-center text-blue-500 ">
           New Consumer
         </h2>
 

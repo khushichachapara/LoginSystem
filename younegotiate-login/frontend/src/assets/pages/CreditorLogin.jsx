@@ -5,6 +5,10 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { IoIosLock } from "react-icons/io";
+import { CiMail } from "react-icons/ci";
+import { PiLockKeyThin } from "react-icons/pi";
+
 
 
 
@@ -69,16 +73,16 @@ const CreditorLogin = () => {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("loginTime", Date.now().toString());
-      localStorage.setItem('creditorId',response.data.user.id);
-      
+      localStorage.setItem('creditorId', response.data.user.id);
+
       toast.info("Login successfully!");
       console.log("Logged in user:", response.data.user);
       navigate("/creditor/dashboard");
     } catch (error) {
       console.log(error);
       formik.setErrors({
-        email:error.response?.data?.message,
-        password:error.response?.data?.message,
+        email: error.response?.data?.message,
+        password: error.response?.data?.message,
 
       });
     }
@@ -101,10 +105,10 @@ const CreditorLogin = () => {
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
           <Link to="/login/consumer">
             <button
-              className="md:px-6 px-0.5 py-3 border-2 border-blue-500  text-blue-600 rounded-lg font-semibold hover:bg-blue-50  transition"
+              className="md:px-6 px-0.5 py-3 border-2 border-blue-500  text-blue-600 rounded-lg font-semibold hover:bg-blue-50  transition flex items-center"
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }}
             >
-              🔒 Consumer Login
+              <IoIosLock style={{ marginRight: '4px', fontSize: '25px' }} /> Consumer Login
             </button>
           </Link>
         </div>
@@ -120,34 +124,46 @@ const CreditorLogin = () => {
           </div>
 
           <div className="mb-4">
-            <input
-              type="email"
-              name="email"
-              placeholder="Registered email"
-              onChange={formik.handleChange}
-              value={formik.values.email}
-              // value={form.email}
-              // onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-4"
-            />
-            {formik.touched.email && Boolean(formik.errors.email) && (
-              <label className="text-red-500 text-sm m-2">{formik.errors.email}</label>
-            )}
+            <div className=" relative">
+              <CiMail
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                size={25}
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Registered email"
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              {formik.touched.email && formik.errors.email && (
+                <p className="text-red-500 text-sm mt-1 ml-1">
+                  {formik.errors.email}
+                </p>
+              )}
+            </div>
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              // value={form.password}
-              // maxLength={16}
-              // onChange={handleChange}
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-4"
-            />
-            {formik.touched.password && Boolean(formik.errors.password) && (
-              <label className="text-red-500 text-sm m-2">{formik.errors.password}</label>
-            )}</div>
+            <div className=" mt-4 relative">
+              <PiLockKeyThin
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                size={23}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={formik.handleChange}
+                value={formik.values.password}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              {formik.touched.password && formik.errors.password && (
+                <p className="text-red-500 text-sm mt-1 ml-1">
+                  {formik.errors.password}
+                </p>
+              )}
+            </div>
+          </div>
 
           <button
             type="submit"
@@ -156,13 +172,13 @@ const CreditorLogin = () => {
             Login
           </button>
 
-          <p className="mt-4 text-center text-sm">
-            Don’t have an account?{" "}
+          <p className="mt-4  text-center text-lg flex items-center justify-center gap-2">
+            Don’t have an account?
             <Link
               to="/register/creditor"
-              className="text-blue-500 hover:underline"
+              className="text-blue-500  underline   "
             >
-              Join Now🤝
+              Join Now
             </Link>
           </p>
         </form>

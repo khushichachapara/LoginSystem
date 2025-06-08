@@ -14,6 +14,7 @@ import ProtectedRoutesConsumer from '../assets/components/ProtectedRoutesConsume
 import MakePayment from '../assets/pages/MakePayment.jsx';
 import NegotiateTerms from '../assets/pages/CreditorNegotiate.jsx';
 import ConsumerNegotiation from '../assets/pages/ConsumerNegotiation.jsx';
+import Transaction from '../assets/pages/Transaction.jsx';
 
 
 const RoutesApp = () => {
@@ -34,6 +35,7 @@ const RoutesApp = () => {
       <Route path ='/makepayment/:id' element={<ProtectedRoutesConsumer element={<MakePayment/>}/>}/>
       <Route path ="/negotiation-requests/Creditor" element={<ProtectedRoutes element={<NegotiateTerms/>}/>}/>
       <Route path ='/negotiation-request/consumer/:id' element={<ProtectedRoutesConsumer element={<ConsumerNegotiation/>}/>}/>
+      <Route path ='/ConsumerHistory/:id' element={<ProtectedRoutesConsumer element={<Transaction/>}/>}/>
     </Routes>
   );
 };

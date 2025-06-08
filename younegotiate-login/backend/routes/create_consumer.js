@@ -10,6 +10,7 @@ const Offer = require('../models/Counteroffer');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 //create consumer
+
 router.post('/create', verifyToken, async (req, res) => {
     const { firstname, lastname, dob, email, ssn, mobilenumber, balance, accountnumber } = req.body;
 
@@ -107,6 +108,7 @@ router.get('/getConsumers', verifyToken, async (req, res) => {
 });
 
 //get consumer details by id
+
 router.get("/getConsumerById/:id", verifyToken, async (req, res) => {
     const { id } = req.params;
 
@@ -132,8 +134,8 @@ router.get("/getConsumerById/:id", verifyToken, async (req, res) => {
     }
 });
 
-
 //submit negotiation request
+
 router.post('/sendnegotiationoffer', verifyToken, async (req, res) => {
     const { offertype, paymentdiscount, installmentamount, duration, paymentdate, note } = req.body;
     const consumerId = req.user.id;
@@ -158,7 +160,7 @@ router.post('/sendnegotiationoffer', verifyToken, async (req, res) => {
         }
 
         if ((installmentamount && !duration) || (!installmentamount && duration)) {
-            return res.status(422).json({ message: 'Duration is required when Installment Amount is provided.' });
+            return res.status(422).json({ message: 'When you have Select Installment Type You have to Provide Both Installment Amount and Duration' });
         }
 
         const negotiationoffer = new NegotiationOffer({
@@ -227,12 +229,6 @@ router.get("/getbyconsumer", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch negotiation offers for consumer" });
   }
 });
-
-
-
-
-
-
 
 module.exports = router;
 

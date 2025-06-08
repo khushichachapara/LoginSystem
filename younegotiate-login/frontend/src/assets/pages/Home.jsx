@@ -92,7 +92,7 @@ const Home = () => {
 
             <button
               onClick={handleCreditorClick}
-              className="px-8 py-3 border-2 w-fit border-blue-500 bg-blue-500 text-white rounded-full font-semibold hover:bg-white hover:text-blue-600 transition"
+              className="px-8 py-3 border-2 w-fit border-blue-500 bg-blue-500 text-white rounded-full font-semibold hover:bg-white hover:text-blue-600 transition "
               style={{ boxShadow: "0 4px 10px rgba(59, 130, 246, 0.5)" }} // blue shadow
             >
               I'm a Creditor

@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom';
 
 const MakePayment = () => {
     const { id } = useParams();
-    
+
     const [paymenttype, setpaymenttype] = useState(null);
     return (
         <div className="bg-gray-100 min-h-screen flex justify-center items-center p-4 ">
+
             <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-3xl">
-                <h2 className="text-2xl font-semibold text-center mb-4 text-blue-500">
+
+                <h2 className="text-2xl  text-center mb-4 text-blue-500">
                     Payment Options or Initiate Negotiation with Creditor
                 </h2>
 
@@ -28,9 +30,10 @@ const MakePayment = () => {
                             Installments
                         </button>
                     </div>
-                </div>  {paymenttype && (
+                </div>
+                {paymenttype && (
                     <div className="mt-4 mb-6">
-                        <p className="text-red-500 text-lg">{paymenttype === 'full' ? 'Fully Loan Payment' : 'Installment Payment '}</p>
+                        <p className="text-red-500 text-lg">{paymenttype === 'full' ? 'Fully Amount Payment' : 'Installment Payment '}</p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                             <div>
@@ -45,9 +48,9 @@ const MakePayment = () => {
                             <div>
                                 <label className="block text-gray-600">Payment Method</label>
                                 <select className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer">
-                                    <option>Credit Card</option>
                                     <option>Stripe</option>
-                                    <option>PayPal</option>
+                                    <option>Credit Card</option>
+                                    <option>RazorPay</option>
                                 </select>
                             </div>
 
@@ -63,6 +66,7 @@ const MakePayment = () => {
                                 <div>
                                     <label className="block text-gray-600">Installment Duration</label>
                                     <select className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer">
+                                        <option value='' defaultValue>Select Installment Duration</option>
                                         <option>1 Month</option>
                                         <option>3 Months</option>
                                         <option>6 Months</option>
@@ -85,24 +89,31 @@ const MakePayment = () => {
                     As a consumer, you can choose to either pay the full amount in
                     one go or opt for an installment plan if that suits you better.
                     Select the option that works best for your financial situation.
-                    If needed, you can also initiate a negotiation with the creditor for more flexible terms.
+                    If needed, you can also initiate a negotiation with the creditor
+                    for more flexible terms.
                 </p>
                 <div className='m-4'>
-                   <Link to="/">
+                    <Link to="/">
                         <button className='p-2 rounded-lg shadow-green-100 bg-green-500 text-white  border border-green-500 hover:bg-white hover:text-green-600 mr-4 mb-4'>
-                           Submit Payment
+                            Submit Payment
                         </button>
                     </Link>
                     <Link to={`/negotiation-request/consumer/${id}`}>
                         <button className='p-2 rounded-lg shadow-red-100 bg-red-500 text-white  border border-red-500 hover:bg-white hover:text-red-600 '>
-                          Negotiate Payment  
+                            Negotiate Payment
                         </button>
                     </Link>
                 </div>
 
 
+                <div className='flex flex-col justify-center items-end'>
+                    <Link to={`/consumer/dashboard/${id}`}>
+                       <button className=' bg-gray-300 px-4 py-2 border border-gray-900 hover:bg-gray-400 text-gray-900 text-md m-4 rounded-lg'>Back to Dashboard</button>
+                    </Link> 
+                </div>
             </div>
         </div>
+
     );
 };
 
